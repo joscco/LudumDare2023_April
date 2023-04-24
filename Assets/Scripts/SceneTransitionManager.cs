@@ -7,8 +7,10 @@ using UnityEngine.Serialization;
 
 public class SceneTransitionManager : MonoBehaviour
     {
-        public CanvasGroup leftOverlay;
-        public CanvasGroup rightOverlay;
+        public SpriteRenderer leftOverlay;
+        public SpriteRenderer rightOverlay;
+        private const float OFFSET = 480f;
+        private const float OUT_OFFSET = 3*480f;
         
         private float _transitionTimeInSeconds = 1f;
         private string _currentSceneName;
@@ -40,8 +42,8 @@ public class SceneTransitionManager : MonoBehaviour
 
         private void Start()
         {
-            leftOverlay.transform.position = -800f * new Vector2(1, 0);
-            rightOverlay.transform.position = 800f * new Vector2(1, 0);
+            leftOverlay.transform.position = -OUT_OFFSET * new Vector2(1, 0);
+            rightOverlay.transform.position = OUT_OFFSET * new Vector2(1, 0);
             TransitionTo("StartScene");
         }
 
@@ -59,8 +61,8 @@ public class SceneTransitionManager : MonoBehaviour
             asyncLoad.allowSceneActivation = false;
 
             // Start Animation
-            leftOverlay.transform.DOMoveX(0, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
-            rightOverlay.transform.DOMoveX(0, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            leftOverlay.transform.DOMoveX(-OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            rightOverlay.transform.DOMoveX(OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
 
             // Once faded in, Scene can be changed
             yield return new WaitForSeconds(_transitionTimeInSeconds);
@@ -78,8 +80,8 @@ public class SceneTransitionManager : MonoBehaviour
             }
 
             // Scene has transitioned, now reverse Animation
-            leftOverlay.transform.DOMoveX(-800, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
-            rightOverlay.transform.DOMoveX(800, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            leftOverlay.transform.DOMoveX(-OUT_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            rightOverlay.transform.DOMoveX(OUT_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
             
             _inTransition = false;
         }

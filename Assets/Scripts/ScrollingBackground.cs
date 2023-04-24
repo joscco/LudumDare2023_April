@@ -1,30 +1,30 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer meshRenderer;
-    private const float _scrollSpeed = 2f;
+    [SerializeField] private float scrollSpeedX = -0.5f;
+    [SerializeField] private float scrollSpeedY = 0.5f;
+    
+    private MeshRenderer _meshRenderer;
     private Vector2 _savedOffset;
-
+    
     private void Start()
     {
-        _savedOffset = meshRenderer.sharedMaterial.mainTextureOffset;
+        _meshRenderer = GetComponent<MeshRenderer>();
+        _savedOffset = _meshRenderer.sharedMaterial.mainTextureOffset;
     }
 
     private void Update()
     {
-        var x = Mathf.Repeat(Time.time * _scrollSpeed, 1);
-        var offset = new Vector2(x, _savedOffset.y);
-        meshRenderer.sharedMaterial.mainTextureOffset = offset;
+        var deltaX = Mathf.Repeat(Time.time, 1/Math.Abs(scrollSpeedX));
+        var deltaY = Mathf.Repeat(Time.time, 1/Math.Abs(scrollSpeedY));
+        var offset = new Vector2(deltaX * scrollSpeedX, deltaY * scrollSpeedY);
+        _meshRenderer.sharedMaterial.mainTextureOffset = offset;
     }
 
     private void OnDisable()
     {
-        meshRenderer.sharedMaterial.mainTextureOffset = _savedOffset;
+        _meshRenderer.sharedMaterial.mainTextureOffset = _savedOffset;
     }
 }
