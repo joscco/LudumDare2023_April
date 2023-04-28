@@ -3,7 +3,6 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class SceneTransitionManager : MonoBehaviour
     {
@@ -13,6 +12,7 @@ public class SceneTransitionManager : MonoBehaviour
         private const float OUT_OFFSET = 3*480f;
         
         private float _transitionTimeInSeconds = 1f;
+        private float _timeCoveredInSeconds = 0.2f;
         private string _currentSceneName;
         private bool _inTransition;
 
@@ -42,14 +42,18 @@ public class SceneTransitionManager : MonoBehaviour
 
         private void Start()
         {
-            leftOverlay.transform.position = -OUT_OFFSET * new Vector2(1, 0);
-            rightOverlay.transform.position = OUT_OFFSET * new Vector2(1, 0);
-            TransitionTo("StartScene");
+            InstantUncoverScreen();
+            SceneManager.LoadScene("FocusScene", LoadSceneMode.Additive);
+            _currentSceneName = "FocusScene";
         }
 
         public void TransitionTo(String levelName)
         {
-            StartCoroutine(FadeInStartAndFadeOut(levelName));
+            if (!_inTransition)
+            {
+                StartCoroutine(FadeInStartAndFadeOut(levelName));
+            }
+            
         }
 
         private IEnumerator FadeInStartAndFadeOut(String levelName)
@@ -61,8 +65,7 @@ public class SceneTransitionManager : MonoBehaviour
             asyncLoad.allowSceneActivation = false;
 
             // Start Animation
-            leftOverlay.transform.DOMoveX(-OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
-            rightOverlay.transform.DOMoveX(OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            CoverScreen();
 
             // Once faded in, Scene can be changed
             yield return new WaitForSeconds(_transitionTimeInSeconds);
@@ -78,11 +81,30 @@ public class SceneTransitionManager : MonoBehaviour
             {
                 yield return null;
             }
+            
+            yield return new WaitForSeconds(_timeCoveredInSeconds);
 
             // Scene has transitioned, now reverse Animation
+            UncoverScreen();
+
+            _inTransition = false;
+        }
+        
+        private void InstantUncoverScreen()
+        {
+            leftOverlay.transform.position = -OUT_OFFSET * new Vector2(1, 0);
+            rightOverlay.transform.position = OUT_OFFSET * new Vector2(1, 0);
+        }
+
+        private void UncoverScreen()
+        {
             leftOverlay.transform.DOMoveX(-OUT_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
             rightOverlay.transform.DOMoveX(OUT_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
-            
-            _inTransition = false;
+        }
+
+        private void CoverScreen()
+        {
+            leftOverlay.transform.DOMoveX(-OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            rightOverlay.transform.DOMoveX(OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
         }
     }
