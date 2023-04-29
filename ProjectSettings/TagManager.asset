@@ -47,6 +47,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: WinAndLosScreen
+    uniqueID: 4147514259
+    locked: 0
+  - name: WinAndLoseScreenFont
+    uniqueID: 2288954735
+    locked: 0
+  - name: WinAndLoseScreenButton
+    uniqueID: 4266591553
+    locked: 0
   - name: TransitionWall
     uniqueID: 1239361819
     locked: 0

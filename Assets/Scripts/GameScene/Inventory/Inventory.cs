@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameScene.BuildingMap;
+using GameScene.Buildings;
 using UnityEngine;
 
 namespace GameScene.Inventory
@@ -31,6 +32,7 @@ namespace GameScene.Inventory
         {
             if (HasFreeSlot())
             {
+                Debug.Log("Adding Item!");
                 var slot = GetFreeSlot();
                 var sprite = spriteWiki.FindSpriteForType(type);
                 slot.SetItem(type, sprite);

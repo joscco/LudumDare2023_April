@@ -1,4 +1,5 @@
 using GameScene.BuildingMap;
+using GameScene.Buildings;
 using UnityEngine;
 
 namespace GameScene.Inventory

@@ -35,6 +35,7 @@ namespace GameScene.Inventory
 
         private void SetSprite(Sprite sprite)
         {
+            Debug.Log("Setting sprite!");
             itemRenderer.sprite = sprite;
         }
 
@@ -48,6 +49,7 @@ namespace GameScene.Inventory
 
         private void BlendInItem()
         {
+            Debug.Log("Blending in Item!");
             itemRenderer.transform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
         }
         

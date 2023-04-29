@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameScene.Buildings;
 using UnityEngine;
 
 namespace GameScene.BuildingMap
 {
-    public class BuildingManager : MonoBehaviour
+    public abstract class BuildingManager<T> : MonoBehaviour where T : Building
     {
         [SerializeField] private Grid grid;
-        private Building[] _buildings;
+        private T[] _buildings;
 
         private void Start()
         {
-            _buildings = GetComponentsInChildren<Building>();
+            _buildings = GetComponentsInChildren<T>();
             foreach (var building in _buildings)
             {
                 building.SetIndex(indexUnwrap(grid.WorldToCell(building.transform.position)));
@@ -38,13 +39,13 @@ namespace GameScene.BuildingMap
         {
             return new Vector3Int(index.x, index.y, 0);
         }
-        
+
         public Vector2Int indexUnwrap(Vector3Int index)
         {
             return new Vector2Int(index.x, index.y);
         }
 
-        public Building GetBuildingAt(Vector2Int index)
+        public T GetBuildingAt(Vector2Int index)
         {
             return _buildings.First(building => building.GetIndex() == index);
         }
