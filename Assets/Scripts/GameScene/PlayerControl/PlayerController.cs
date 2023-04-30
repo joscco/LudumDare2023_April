@@ -100,9 +100,7 @@ namespace GameScene.PlayerControl
                 UpdatePosition(_currentIndex + move);
             }
         }
-    
-    
-    
+
         private void InstantUpdatePosition(Vector2Int newIndex)
         {
             _currentIndex = newIndex;
@@ -115,7 +113,7 @@ namespace GameScene.PlayerControl
             _currentIndex = newIndex;
             _moveTween?.Kill();
             _moveTween = transform.DOMove(streetMap.IndexToPosition(newIndex), 0.15f)
-                .SetEase(Ease.InOutBack);
+                .SetEase(Ease.InOutCirc);
         }
     }
 }
