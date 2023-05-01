@@ -15,14 +15,14 @@ public class TitleAnimation : MonoBehaviour
 
     private void Start()
     {
-        _initialPositions = new List<Vector3>(letters.Select(letter => letter.transform.position));
+        _initialPositions = new List<Vector3>(letters.Select(letter => letter.transform.localPosition));
     }
 
     public void Hide()
     {
         for (int i = 0; i < letters.Count; i++)
         {
-            letters[i].transform.position = _initialPositions[i] + yOffsetWhenFadeOut * Vector3.up;
+            letters[i].transform.localPosition = _initialPositions[i] + yOffsetWhenFadeOut * Vector3.up;
         }
     }
 
@@ -30,7 +30,7 @@ public class TitleAnimation : MonoBehaviour
     {
         for (int i = 0; i < letters.Count; i++)
         {
-            letters[i].transform.position = _initialPositions[i];
+            letters[i].transform.localPosition = _initialPositions[i];
         }
     }
 
@@ -41,8 +41,7 @@ public class TitleAnimation : MonoBehaviour
         {
             seq.Insert(
                 i * secondOffsetLetterAnimations,
-                letters[i].transform.DOMoveY(
-                        _initialPositions[i].y,
+                letters[i].transform.DOLocalMoveY(_initialPositions[i].y,
                         secondDurationLetterAnimation)
                     .SetEase(Ease.InOutBack)
             );
@@ -58,7 +57,7 @@ public class TitleAnimation : MonoBehaviour
         {
             seq.Insert(
                 i * secondOffsetLetterAnimations,
-                letters[i].transform.DOMoveY(
+                letters[i].transform.DOLocalMoveY(
                         _initialPositions[i].y + yOffsetWhenFadeOut,
                         secondDurationLetterAnimation)
                     .SetEase(Ease.InOutBack)

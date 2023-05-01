@@ -1,16 +1,21 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using GameScene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneTransitionManager : MonoBehaviour
-    {
-        public SpriteRenderer leftOverlay;
-        public SpriteRenderer rightOverlay;
-        private const float OFFSET = 480f;
-        private const float OUT_OFFSET = 3*480f;
-        
+{
+    public SpriteRenderer pizza;
+    public SpriteRenderer pizzaSchieber;
+    
+        private const float PIZZA_OUT_OFFSET = 2000f;
+        private const float PIZZA_AFTER_OFFSET = -2000f;
+        private const float PIZZA_BETWEEN_OFFSET = 0f;
+        private const float PIZZASCHIEBER_OUT_OFFSET = -2000f;
+        private const float PIZZASCHIEBER_BETWEEN_OFFSET = 0f;
+
         private float _transitionTimeInSeconds = 1f;
         private float _timeCoveredInSeconds = 0.2f;
         private string _currentSceneName;
@@ -86,25 +91,37 @@ public class SceneTransitionManager : MonoBehaviour
 
             // Scene has transitioned, now reverse Animation
             UncoverScreen();
-
             _inTransition = false;
+            yield return new WaitForSeconds(_transitionTimeInSeconds / 2);
+            InitSceneManager();
         }
         
         private void InstantUncoverScreen()
         {
-            leftOverlay.transform.position = -OUT_OFFSET * new Vector2(1, 0);
-            rightOverlay.transform.position = OUT_OFFSET * new Vector2(1, 0);
+            pizza.transform.position = PIZZA_OUT_OFFSET * new Vector2(0, 1);
+            pizzaSchieber.transform.position = PIZZASCHIEBER_OUT_OFFSET * new Vector2(0, 1);
         }
 
         private void UncoverScreen()
         {
-            leftOverlay.transform.DOMoveX(-OUT_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
-            rightOverlay.transform.DOMoveX(OUT_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            pizzaSchieber.transform.DOMoveY(PIZZASCHIEBER_OUT_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            pizza.transform.DOMoveY(PIZZA_AFTER_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
         }
 
         private void CoverScreen()
         {
-            leftOverlay.transform.DOMoveX(-OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
-            rightOverlay.transform.DOMoveX(OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            pizza.transform.position = PIZZA_OUT_OFFSET * new Vector2(0, 1);
+            pizza.transform.DOMoveY(PIZZA_BETWEEN_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            pizzaSchieber.transform.DOMoveY(PIZZASCHIEBER_BETWEEN_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
         }
-    }
+
+        private void InitSceneManager()
+        {
+            FindObjectOfType<StartSceneManager>()?.AfterFade();
+        }
+
+        public void ReloadCurrentScene()
+        {
+            TransitionTo(_currentSceneName);
+        }
+}

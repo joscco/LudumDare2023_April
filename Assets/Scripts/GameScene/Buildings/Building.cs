@@ -22,6 +22,6 @@ namespace GameScene.Buildings
 
     public enum BuildingType
     {
-        HOUSE, PIZZA, SUSHI, BURGER, TACO, HOSPITAL, POLICE, DRUG_DEALER
+        HOUSE, POLICE, PIZZA_SHOP, SUSHI_SHOP, BURGER_SHOP, HOSPITAL, WEAPON_SHOP, DRUG_SHOP
     }
 }

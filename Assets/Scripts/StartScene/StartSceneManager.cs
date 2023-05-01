@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
-public class StartSceneManager : MonoBehaviour
+public class StartSceneManager : MonoBehaviour, SceneManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public TitleAnimation titleAnimation;
+
+    private void Start()
     {
-        
+        titleAnimation.Hide();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AfterFade()
     {
-        
+        titleAnimation.FadeIn();
     }
 }

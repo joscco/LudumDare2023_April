@@ -14,7 +14,7 @@ namespace Code.GameScene.UI
 
         private bool _hovering;
 
-        private void Start()
+        public virtual void Start()
         {
             if (!GetComponent<Collider2D>())
             {
@@ -77,5 +77,10 @@ namespace Code.GameScene.UI
         public abstract void OnClick();
 
         public abstract bool IsEnabled();
+
+        public bool IsHovering()
+        {
+            return _hovering;
+        }
     }
 }

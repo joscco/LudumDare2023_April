@@ -47,6 +47,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Lawn
+    uniqueID: 1011034845
+    locked: 0
+  - name: RiverAndStreet
+    uniqueID: 3247677011
+    locked: 0
+  - name: BuildingsAndPlayer
+    uniqueID: 3170936129
+    locked: 0
   - name: WinAndLosScreen
     uniqueID: 4147514259
     locked: 0
@@ -55,6 +64,12 @@ TagManager:
     locked: 0
   - name: WinAndLoseScreenButton
     uniqueID: 4266591553
+    locked: 0
+  - name: OptionScreen
+    uniqueID: 2143075567
+    locked: 0
+  - name: OptionScreenContent
+    uniqueID: 2665478585
     locked: 0
   - name: TransitionWall
     uniqueID: 1239361819

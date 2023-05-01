@@ -27,8 +27,8 @@ namespace GameScene.BuildingMap
 
         public static readonly List<BuildingType> SUPPLIERS = new()
         {
-            BuildingType.PIZZA, BuildingType.SUSHI, BuildingType.BURGER, BuildingType.TACO,
-            BuildingType.HOSPITAL, BuildingType.DRUG_DEALER
+            BuildingType.PIZZA_SHOP, BuildingType.SUSHI_SHOP, BuildingType.BURGER_SHOP,
+            BuildingType.HOSPITAL, BuildingType.WEAPON_SHOP, BuildingType.DRUG_SHOP
         };
     }
 }
