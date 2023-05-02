@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Drugs
   m_EditorClassIdentifier: 
   itemType: 5
+  illegal: 1
   supplierType: 7
   inventorySprite: {fileID: 21300000, guid: 17690c775cf10422bac8f9901ac16fb4, type: 3}
+  priceWhenPerfect: 100
+  priceWhenGood: 0
+  priceWhenBad: 0

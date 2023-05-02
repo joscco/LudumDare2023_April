@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Organ
   m_EditorClassIdentifier: 
   itemType: 3
+  illegal: 1
   supplierType: 5
   inventorySprite: {fileID: 21300000, guid: c0530cf4bc8664ad78e9beabd8cd2d63, type: 3}
+  priceWhenPerfect: 200
+  priceWhenGood: 100
+  priceWhenBad: 0

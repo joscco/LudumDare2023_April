@@ -24,14 +24,12 @@ namespace StartScene
         private void BeginBeating()
         {
             beatTween = DOTween.Sequence()
-                .AppendInterval(0.5f)
-                .Append(heart.transform.DOScale(1.1f, 0.1f)
-                    .SetEase(Ease.OutExpo)
-                    .SetLoops(1, LoopType.Yoyo))
+                .AppendInterval(1f)
+                .Append(heart.transform.DOScale(1.1f, 0.1f).SetEase(Ease.OutExpo))
+                .Append(heart.transform.DOScale(1f, 0.1f).SetEase(Ease.OutExpo))
                 .AppendInterval(0.1f)
-                .Append(heart.transform.DOScale(1.1f, 0.1f)
-                    .SetEase(Ease.OutExpo)
-                    .SetLoops(1, LoopType.Yoyo))
+                .Append(heart.transform.DOScale(1.1f, 0.1f).SetEase(Ease.OutExpo))
+                .Append(heart.transform.DOScale(1f, 0.1f).SetEase(Ease.OutExpo))
                 .SetLoops(-1, LoopType.Restart);
         }
 

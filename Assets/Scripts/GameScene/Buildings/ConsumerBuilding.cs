@@ -1,4 +1,3 @@
-using GameScene.BuildingMap;
 using GameScene.Inventory;
 
 namespace GameScene.Buildings
@@ -9,9 +8,26 @@ namespace GameScene.Buildings
         public bool demandsItem;
         public ItemType demandedItemType;
 
+
         public void SetSatisfied()
         {
             demandsItem = false;
+            itemHint.BlendOut();
+        }
+
+        public override bool NeedsHint()
+        {
+            return demandsItem;
+        }
+
+        public override ItemType GetItemType()
+        {
+            return demandedItemType;
+        }
+
+        public void BlendInHint()
+        {
+            itemHint.BlendIn();
         }
     }
 }

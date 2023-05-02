@@ -8,11 +8,16 @@ namespace General
         public static AudioManager instance;
         
         public AudioSource EffectsSource;
+        public AudioSource PoliceSource;
+        public AudioSource BarkSource;
         public AudioSource MusicSource;
 
         public AudioClip mainMusic;
         public AudioClip[] blubSounds;
         public AudioClip[] moveSounds;
+        public AudioClip[] noSounds;
+        public AudioClip policeSound;
+        public AudioClip dogBark;
 
         private void Start()
         {
@@ -39,6 +44,8 @@ namespace General
         public void SetSFXVolume(float value)
         {
             EffectsSource.volume = value;
+            PoliceSource.volume = value;
+            BarkSource.volume = value;
             PlayerPrefs.SetFloat("sfxLevel", value);
         }
         
@@ -52,6 +59,24 @@ namespace General
         {
             EffectsSource.clip = moveSounds[Random.Range(0, moveSounds.Length)];
             EffectsSource.Play();
+        }
+        
+        public void PlayAlarmSound()
+        {
+            PoliceSource.clip = policeSound;
+            PoliceSource.Play();
+        }
+
+        public void PlayDogBark()
+        {
+            BarkSource.clip = dogBark;
+            BarkSource.Play();
+        }
+        
+        public void PlayNoSound()
+        {
+            PoliceSource.clip = noSounds[Random.Range(0, noSounds.Length)];
+            PoliceSource.Play();
         }
 
         // Play a single clip through the music source.
@@ -78,5 +103,7 @@ namespace General
         {
             return EffectsSource.volume;
         }
+
+        
     }
 }

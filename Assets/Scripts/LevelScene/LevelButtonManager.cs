@@ -11,7 +11,6 @@ namespace GameScene.UI
         private void Start()
         {
             _levelButtons = GetComponentsInChildren<LevelButton>();
-            Debug.Log("Buttons found: "+ _levelButtons.Length);
             UpdateLevelButtons();
         }
 
@@ -23,7 +22,6 @@ namespace GameScene.UI
         private void UpdateLevelButtons()
         {
             int unlockedLevels = Game.instance.GetUnlockedLevel();
-            Debug.Log("Unlocked Level: " + unlockedLevels);
             foreach (var levelButton in _levelButtons)
             {
                 if (levelButton.level <= unlockedLevels + 1)

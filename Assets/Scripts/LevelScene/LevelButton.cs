@@ -7,7 +7,6 @@ namespace GameScene.UI
 {
     public class LevelButton : ScalingButton
     {
-        public static String levelPrefix = "Level";
         public int level;
         public bool canBePlayed;
 
@@ -16,13 +15,16 @@ namespace GameScene.UI
         public TextMeshPro levelText;
         
         public SpriteRenderer spriteRenderer;
-        private Collider2D _collider;
+        public Collider2D _collider;
 
         public override void Start()
         {
             base.Start();
             levelText.text = level.ToString();
-            _collider = GetComponent<PolygonCollider2D>();
+            spriteRenderer.sortingOrder = level;
+            levelText.sortingOrder = level;
+            // Show the above colliders on top!
+            transform.position = new Vector3(transform.position.x, transform.position.y, -level/2);
         }
         
         public void SetAvailable()
@@ -30,7 +32,6 @@ namespace GameScene.UI
             _collider.enabled = true;
             canBePlayed = true;
             spriteRenderer.sprite = enabledSprite;
-            spriteRenderer.sortingOrder = level;
             levelText.alpha = 1f;
         }
 
@@ -39,14 +40,13 @@ namespace GameScene.UI
             _collider.enabled = false;
             canBePlayed = false;
             spriteRenderer.sprite = unenabledSprite;
-            spriteRenderer.sortingOrder = 0;
             levelText.alpha = 0.2f;
         }
 
 
         public override void OnClick()
         {
-            SceneTransitionManager.Get().TransitionTo(levelPrefix + level);
+            SceneTransitionManager.Get().StartLevel(level);
         }
 
         public override bool IsEnabled()

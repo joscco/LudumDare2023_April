@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Sushi
   m_EditorClassIdentifier: 
   itemType: 1
+  illegal: 0
   supplierType: 3
   inventorySprite: {fileID: 21300000, guid: 5e949ce8c82f84e8dbf4fcc8de31bf19, type: 3}
+  priceWhenPerfect: 25
+  priceWhenGood: 20
+  priceWhenBad: 15

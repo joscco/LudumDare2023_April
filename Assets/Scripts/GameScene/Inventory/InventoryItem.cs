@@ -8,7 +8,13 @@ namespace GameScene.Inventory
     public class InventoryItem : ScriptableObject
     {
         public ItemType itemType;
+        public bool illegal;
+        
         public BuildingType supplierType;
         public Sprite inventorySprite;
+
+        public int priceWhenPerfect;
+        public int priceWhenGood;
+        public int priceWhenBad;
     }
 }

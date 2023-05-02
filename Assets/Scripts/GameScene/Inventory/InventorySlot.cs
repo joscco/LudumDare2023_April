@@ -6,6 +6,7 @@ namespace GameScene.Inventory
     public class InventorySlot : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer itemRenderer;
+        [SerializeField] private FreshnessDisplay _freshnessDisplay;
 
         private bool _hasItem;
         private ItemType _type;
@@ -13,6 +14,7 @@ namespace GameScene.Inventory
         private void Start()
         {
             itemRenderer.transform.localScale = Vector3.zero;
+            _freshnessDisplay.Hide();
         }
 
         public bool HasItem()
@@ -20,9 +22,22 @@ namespace GameScene.Inventory
             return _hasItem;
         }
 
+        public void NextStatus()
+        {
+            if (_hasItem)
+            {
+                _freshnessDisplay.NextStatus();
+            }
+        }
+
         public new ItemType GetType()
         {
             return _type;
+        }
+
+        public SimpleFreshnessLevel GetFreshness()
+        {
+            return _freshnessDisplay.GetFreshness();
         }
 
         public void SetItem(ItemType type, Sprite sprite)
@@ -31,11 +46,20 @@ namespace GameScene.Inventory
             _type = type;
             SetSprite(sprite);
             BlendInItem();
+
+            if (type == ItemType.DRUGS || type == ItemType.WEAPON)
+            {
+                _freshnessDisplay.SetInfiniteFresh();
+            }
+            else
+            {
+                _freshnessDisplay.SetRegularFresh();
+            }
+            _freshnessDisplay.BlendIn();
         }
 
         private void SetSprite(Sprite sprite)
         {
-            Debug.Log("Setting sprite!");
             itemRenderer.sprite = sprite;
         }
 
@@ -44,12 +68,11 @@ namespace GameScene.Inventory
             _hasItem = false;
             _type = ItemType.PIZZA;
             BlendOutItem();
-
+            _freshnessDisplay.BlendOut();
         }
 
         private void BlendInItem()
         {
-            Debug.Log("Blending in Item!");
             itemRenderer.transform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
         }
         

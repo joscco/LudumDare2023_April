@@ -49,5 +49,10 @@ namespace GameScene.BuildingMap
         {
             return _buildings.First(building => building.GetIndex() == index);
         }
+
+        public T[] GetBuildings()
+        {
+            return _buildings;
+        }
     }
 }

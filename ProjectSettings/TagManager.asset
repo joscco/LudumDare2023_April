@@ -56,6 +56,12 @@ TagManager:
   - name: BuildingsAndPlayer
     uniqueID: 3170936129
     locked: 0
+  - name: DialogPerson
+    uniqueID: 564358147
+    locked: 0
+  - name: DialogBubble
+    uniqueID: 2413061093
+    locked: 0
   - name: WinAndLosScreen
     uniqueID: 4147514259
     locked: 0

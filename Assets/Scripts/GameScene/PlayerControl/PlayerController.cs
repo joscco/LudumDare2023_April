@@ -33,6 +33,14 @@ namespace GameScene.PlayerControl
 
         public void UpdatePosition(Vector2Int newIndex, Vector2 newPos)
         {
+            if (newIndex.x < _currentIndex.x)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else
+            {
+                spriteRenderer.flipX = false;
+            }
             _currentIndex = newIndex;
             _moveTween?.Kill();
             _moveTween = transform.DOMove(newPos, 0.15f)

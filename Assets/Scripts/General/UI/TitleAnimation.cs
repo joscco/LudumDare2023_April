@@ -9,7 +9,7 @@ public class TitleAnimation : MonoBehaviour
 {
     public List<SpriteRenderer> letters;
     private List<Vector3> _initialPositions;
-    public int yOffsetWhenFadeOut = -800;
+    public int yOffsetWhenFadeOut = -1000;
     public float secondOffsetLetterAnimations = 0.1f;
     public float secondDurationLetterAnimation = 0.5f;
 

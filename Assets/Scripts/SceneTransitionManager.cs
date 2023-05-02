@@ -9,6 +9,7 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public SpriteRenderer pizza;
     public SpriteRenderer pizzaSchieber;
+    public static String levelPrefix = "Level";
     
         private const float PIZZA_OUT_OFFSET = 2000f;
         private const float PIZZA_AFTER_OFFSET = -2000f;
@@ -20,6 +21,8 @@ public class SceneTransitionManager : MonoBehaviour
         private float _timeCoveredInSeconds = 0.2f;
         private string _currentSceneName;
         private bool _inTransition;
+
+        private int _currentLevel;
 
         private static SceneTransitionManager _instance;
 
@@ -118,10 +121,27 @@ public class SceneTransitionManager : MonoBehaviour
         private void InitSceneManager()
         {
             FindObjectOfType<StartSceneManager>()?.AfterFade();
+            FindObjectOfType<LevelManager>()?.AfterFade();
         }
 
         public void ReloadCurrentScene()
         {
             TransitionTo(_currentSceneName);
+        }
+
+        public void LoadNextLevel()
+        {
+            StartLevel(_currentLevel + 1);
+        }
+
+        public void StartLevel(int level)
+        {
+            _currentLevel = level;
+            TransitionTo(levelPrefix + level);
+        }
+
+        public int GetCurrentLevel()
+        {
+            return _currentLevel;
         }
 }

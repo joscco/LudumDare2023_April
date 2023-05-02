@@ -6,6 +6,7 @@ public class Game : MonoBehaviour
 {
     public static Game instance;
     private int unlockedLevels = 0;
+    public const int AVAILABLE_LEVELS = 13;
     
     void Start()
     {

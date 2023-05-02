@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using GameScene.BuildingMap;
-using GameScene.Buildings;
 using UnityEngine;
 
 namespace GameScene.Inventory
@@ -13,7 +10,6 @@ namespace GameScene.Inventory
         public int slotHeight = 100;
         public int slotVerticalGap = 20;
         [SerializeField] private InventorySlot slotPrefab;
-        [SerializeField] private InventorySpriteWiki spriteWiki;
         
         private List<InventorySlot> _slots;
 
@@ -28,13 +24,11 @@ namespace GameScene.Inventory
             }
         }
 
-        public void AddItem(ItemType type)
+        public void AddItem(ItemType type, Sprite sprite)
         {
             if (HasFreeSlot())
             {
-                Debug.Log("Adding Item!");
                 var slot = GetFreeSlot();
-                var sprite = spriteWiki.FindSpriteForType(type);
                 slot.SetItem(type, sprite);
             }
             else
@@ -43,17 +37,32 @@ namespace GameScene.Inventory
             }
         }
 
-        public void RemoveItem(ItemType type)
+        public SimpleFreshnessLevel RemoveItem(ItemType type)
         {
             if (HasItem(type))
             {
                 var slot = _slots.Where(slot => slot.HasItem()).First(slot => slot.GetType() == type);
+                var freshness = slot.GetFreshness();
+                slot.RemoveItem();
+                return freshness;
+            }
+            
+            Debug.LogError("Item not available!");
+            return SimpleFreshnessLevel.BAD;
+        }
+        
+        public void RemoveFirstFood()
+        {
+            var slot = _slots.Where(slot => slot.HasItem()).First(slot => Food.Contains(slot.GetType()));
+            if (null != slot)
+            {
                 slot.RemoveItem();
             }
-            else
-            {
-                Debug.LogError("Item not available!");
-            }
+        }
+
+        public void NextStatus()
+        {
+            _slots.Where(slot => slot.HasItem()).ToList().ForEach(slot => slot.NextStatus());
         }
 
         public bool HasItem(ItemType type)
@@ -71,9 +80,24 @@ namespace GameScene.Inventory
             return _slots.First(slot => !slot.HasItem());
         }
 
-        public ItemType GetItemForBuildingType(BuildingType buildingType)
+        public bool HasBadHeart()
         {
-            return spriteWiki.FindItemForSupplier(buildingType);
+            return _slots.Any(slot =>
+                slot.HasItem() && slot.GetType() == ItemType.ORGAN && slot.GetFreshness() == SimpleFreshnessLevel.BAD);
         }
+
+        public bool HoldsIllegalItem()
+        {
+            return _slots.Any(slot => slot.HasItem() && IllegalItems.Contains(slot.GetType()));
+        }
+        
+        public bool HoldsFood()
+        {
+            return _slots.Any(slot => slot.HasItem() && Food.Contains(slot.GetType()));
+        }
+
+        private static readonly ItemType[] IllegalItems = { ItemType.DRUGS, ItemType.WEAPON, ItemType.ORGAN };
+
+        private static readonly ItemType[] Food = { ItemType.PIZZA, ItemType.SUSHI, ItemType.BURGER };
     }
 }

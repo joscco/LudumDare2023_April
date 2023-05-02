@@ -8,11 +8,12 @@ namespace GameScene.UI
     {
         public Sprite mafiaReasonSprite;
         public Sprite policeReasonSprite;
+        public Sprite noActionsLeftSprite;
         public TextMeshPro reasonText;
         public SpriteRenderer reasonSpriteRenderer;
         public TitleAnimation titleAnimation;
         
-        private const int VERTICAL_OFFSET_WHEN_HIDDEN = 900;
+        private const int VERTICAL_OFFSET_WHEN_HIDDEN = 1200;
         private bool _visible = false;
 
         private void Start()
@@ -38,7 +39,7 @@ namespace GameScene.UI
                     reasonText.text = "Oh no! You ran out of actions.";
                     break;
                 case LoseReason.Mafia:
-                    reasonText.text = "Oopsie... The mafia wasn't satisfied with you.";
+                    reasonText.text = "Seems the mafia wasn't satisfied with you.";
                     break;
                 case LoseReason.Police:
                     reasonText.text = "Hands Up! You got caught by the police.";
@@ -51,7 +52,7 @@ namespace GameScene.UI
             switch (reason)
             {
                 case LoseReason.NoActionsLeft:
-                    reasonSpriteRenderer.sprite = null;
+                    reasonSpriteRenderer.sprite = noActionsLeftSprite;
                     break;
                 case LoseReason.Mafia:
                     reasonSpriteRenderer.sprite = mafiaReasonSprite;
