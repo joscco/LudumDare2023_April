@@ -1,21 +1,16 @@
 using System;
 using GameScene.Inventory;
+using LevelDesign;
 using UnityEngine;
 
 namespace GameScene.Buildings
 {
     public abstract class Building: MonoBehaviour
     {
-        public BuildingType type;
         public ItemHint itemHint;
 
         // Will be set at start by grid
         private Vector2Int _index;
-
-        private void Start()
-        {
-            itemHint.Hide();
-        }
 
         public void SetIndex(Vector2Int index)
         {
@@ -30,15 +25,13 @@ namespace GameScene.Buildings
         public abstract bool NeedsHint();
 
         public abstract ItemType GetItemType();
-
-        public void BlendOutHint()
+        
+        
+        public void InitHint(SignPosition supplierSignPosition, int number)
         {
-            itemHint.BlendOut();
+            itemHint.Turn(supplierSignPosition);
+            itemHint.UpdateNumber(number);
         }
-    }
 
-    public enum BuildingType
-    {
-        HOUSE, POLICE, PIZZA_SHOP, SUSHI_SHOP, BURGER_SHOP, HOSPITAL, WEAPON_SHOP, DRUG_SHOP
     }
 }

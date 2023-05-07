@@ -18,6 +18,18 @@ namespace GameScene.UI
             Hide();
         }
 
+        public void Toggle()
+        {
+            if (IsVisible())
+            {
+                BlendOut();
+            }
+            else
+            {
+                BlendIn();
+            }
+        }
+
         public void BlendIn()
         {
             _visible = true;

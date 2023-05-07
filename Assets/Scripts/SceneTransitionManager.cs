@@ -9,13 +9,12 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public SpriteRenderer pizza;
     public SpriteRenderer pizzaSchieber;
-    public static String levelPrefix = "Level";
     
-        private const float PIZZA_OUT_OFFSET = 2000f;
-        private const float PIZZA_AFTER_OFFSET = -2000f;
-        private const float PIZZA_BETWEEN_OFFSET = 0f;
-        private const float PIZZASCHIEBER_OUT_OFFSET = -2000f;
-        private const float PIZZASCHIEBER_BETWEEN_OFFSET = 0f;
+        private const float PizzaOutOffset = 2000f;
+        private const float PizzaAfterOffset = -2000f;
+        private const float PizzaBetweenOffset = 0f;
+        private const float PizzaschieberOutOffset = -2000f;
+        private const float PizzaschieberBetweenOffset = 0f;
 
         private float _transitionTimeInSeconds = 1f;
         private float _timeCoveredInSeconds = 0.2f;
@@ -55,16 +54,16 @@ public class SceneTransitionManager : MonoBehaviour
             _currentSceneName = "FocusScene";
         }
 
-        public void TransitionTo(String levelName)
+        public void TransitionTo(String levelName, int level = 0)
         {
             if (!_inTransition)
             {
-                StartCoroutine(FadeInStartAndFadeOut(levelName));
+                StartCoroutine(FadeInStartAndFadeOut(levelName, level));
             }
             
         }
 
-        private IEnumerator FadeInStartAndFadeOut(String levelName)
+        private IEnumerator FadeInStartAndFadeOut(String levelName, int level)
         {
             _inTransition = true;
             
@@ -93,40 +92,43 @@ public class SceneTransitionManager : MonoBehaviour
             yield return new WaitForSeconds(_timeCoveredInSeconds);
 
             // Scene has transitioned, now reverse Animation
+            InitSceneManager(level);
             UncoverScreen();
             _inTransition = false;
-            yield return new WaitForSeconds(_transitionTimeInSeconds / 2);
-            InitSceneManager();
         }
         
         private void InstantUncoverScreen()
         {
-            pizza.transform.position = PIZZA_OUT_OFFSET * new Vector2(0, 1);
-            pizzaSchieber.transform.position = PIZZASCHIEBER_OUT_OFFSET * new Vector2(0, 1);
+            pizza.transform.position = PizzaOutOffset * new Vector2(0, 1);
+            pizzaSchieber.transform.position = PizzaschieberOutOffset * new Vector2(0, 1);
         }
 
         private void UncoverScreen()
         {
-            pizzaSchieber.transform.DOMoveY(PIZZASCHIEBER_OUT_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
-            pizza.transform.DOMoveY(PIZZA_AFTER_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            pizzaSchieber.transform.DOMoveY(PizzaschieberOutOffset, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            pizza.transform.DOMoveY(PizzaAfterOffset, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
         }
 
         private void CoverScreen()
         {
-            pizza.transform.position = PIZZA_OUT_OFFSET * new Vector2(0, 1);
-            pizza.transform.DOMoveY(PIZZA_BETWEEN_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
-            pizzaSchieber.transform.DOMoveY(PIZZASCHIEBER_BETWEEN_OFFSET, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            pizza.transform.position = PizzaOutOffset * new Vector2(0, 1);
+            pizza.transform.DOMoveY(PizzaBetweenOffset, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
+            pizzaSchieber.transform.DOMoveY(PizzaschieberBetweenOffset, _transitionTimeInSeconds).SetEase(Ease.InOutQuad);
         }
 
-        private void InitSceneManager()
+        private void InitSceneManager(int level)
         {
-            FindObjectOfType<StartSceneManager>()?.AfterFade();
-            FindObjectOfType<LevelManager>()?.AfterFade();
+            FindObjectOfType<StartSceneManager>()?.AfterSceneStart();
+
+            if (level != 0)
+            {
+                FindObjectOfType<LevelManager>()?.StartLevel(level);
+            }
         }
 
-        public void ReloadCurrentScene()
+        public void ReloadCurrentLevel()
         {
-            TransitionTo(_currentSceneName);
+            StartLevel(_currentLevel);
         }
 
         public void LoadNextLevel()
@@ -137,7 +139,7 @@ public class SceneTransitionManager : MonoBehaviour
         public void StartLevel(int level)
         {
             _currentLevel = level;
-            TransitionTo(levelPrefix + level);
+            TransitionTo("GameLevelScene", level);
         }
 
         public int GetCurrentLevel()

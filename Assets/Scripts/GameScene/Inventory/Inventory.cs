@@ -19,7 +19,7 @@ namespace GameScene.Inventory
             for (int i = 0; i < numberOfSlots; i++)
             {
                 var slot = Instantiate(slotPrefab, transform);
-                slot.transform.localPosition = new Vector2(0, - i * (slotHeight + slotVerticalGap));
+                slot.transform.localPosition = new Vector2(0, (1 - i) * (slotHeight + slotVerticalGap));
                 _slots.Add(slot);
             }
         }

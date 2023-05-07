@@ -14,11 +14,6 @@ namespace GameScene.Inventory
             return _items.First(item => item.itemType == type).inventorySprite;
         }
 
-        public ItemType FindItemForSupplier(BuildingType type)
-        {
-            return _items.First(item => item.supplierType == type).itemType;
-        }
-
         public int GetPriceForItem(ItemType type, SimpleFreshnessLevel freshness)
         {
             var item = _items.First(item => item.itemType == type);

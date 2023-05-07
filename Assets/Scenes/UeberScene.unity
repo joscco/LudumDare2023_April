@@ -549,7 +549,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6eb29a292994b4794a4c2148342a4dfb, type: 3}
   - {fileID: 8300000, guid: 94bb2fde4a5ad4084a8365e718e6e0ee, type: 3}
   - {fileID: 8300000, guid: ba6ac6bb6108e44358874513a6ec2fb6, type: 3}
-  policeSound: {fileID: 8300000, guid: 5ac44fdb9de9c45189a93488ad77f5a7, type: 3}
+  policeSound: {fileID: 8300000, guid: af83da15077c641c5a0eb18385db5959, type: 3}
   dogBark: {fileID: 8300000, guid: dfacc30317ef74b2fbb6c31f960be8d9, type: 3}
 --- !u!4 &602055327
 Transform:
@@ -1577,7 +1577,7 @@ SpriteRenderer:
   m_SortingLayerID: 2143075567
   m_SortingLayer: 9
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d747a8d7b0b074f09b355687cd29a2f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c2bce981676f462bbd54ae6f0e63324, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1628,7 +1628,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127562616978232889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 838, y: 433, z: 0}
+  m_LocalPosition: {x: 850, y: 450, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1742,8 +1742,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4292539120
-  m_fontColor: {r: 0.94117653, g: 0.9490197, b: 0.854902, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2272,7 +2272,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -687452533739091126, guid: d276ed5ed268943f0919d1bf8c4129cb, type: 2}
+  - {fileID: -687452533739091126, guid: 26725ede451c8412eb99025c6e6e3ea8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2316,8 +2316,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: OKAY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d276ed5ed268943f0919d1bf8c4129cb, type: 2}
-  m_sharedMaterial: {fileID: -687452533739091126, guid: d276ed5ed268943f0919d1bf8c4129cb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26725ede451c8412eb99025c6e6e3ea8, type: 2}
+  m_sharedMaterial: {fileID: -687452533739091126, guid: 26725ede451c8412eb99025c6e6e3ea8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

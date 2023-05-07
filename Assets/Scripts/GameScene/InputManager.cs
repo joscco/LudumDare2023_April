@@ -8,6 +8,7 @@ namespace GameScene
 
         public Vector2Int CheckInput()
         {
+
             int horizontalMove = 0;
             int verticalMove = 0;
 

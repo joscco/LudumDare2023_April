@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using DG.Tweening;
 using UnityEngine;
 
 public class StartSceneManager : MonoBehaviour, SceneManager
@@ -13,8 +14,8 @@ public class StartSceneManager : MonoBehaviour, SceneManager
         titleAnimation.Hide();
     }
 
-    public void AfterFade()
+    public void AfterSceneStart()
     {
-        titleAnimation.FadeIn();
+        DOVirtual.DelayedCall(0.5f, () => titleAnimation.FadeIn());
     }
 }

@@ -10,7 +10,6 @@ namespace GameScene.Inventory
         public ItemType itemType;
         public bool illegal;
         
-        public BuildingType supplierType;
         public Sprite inventorySprite;
 
         public int priceWhenPerfect;

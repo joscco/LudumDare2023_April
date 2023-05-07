@@ -14,7 +14,7 @@ namespace GameScene.UI
             UpdateLevelButtons();
         }
 
-        public void AfterFade()
+        public void AfterSceneStart()
         {
             // Nothing is enough
         }

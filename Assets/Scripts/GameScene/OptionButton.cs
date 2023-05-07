@@ -9,14 +9,7 @@ namespace GameScene
         
         public override void OnClick()
         {
-            if (OptionScreen.IsVisible())
-            {
-                OptionScreen.BlendOut();
-            }
-            else
-            {
-                OptionScreen.BlendIn();
-            }
+            OptionScreen.Toggle();
         }
 
         public override bool IsEnabled()

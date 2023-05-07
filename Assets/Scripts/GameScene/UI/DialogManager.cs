@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using LevelDesign;
 using TMPro;
 using UnityEngine;
 
@@ -105,17 +106,17 @@ namespace GameScene.UI
                 if (shown)
                 {
                     DOTween.Sequence()
-                        .Append(nextNode.showMafiaGuy ? BlendInMafiaGuy() : BlendOutMafiaGuy())
+                        .Append(nextNode.ShowMafiaGuy ? BlendInMafiaGuy() : BlendOutMafiaGuy())
                         .Append(BlendOutText())
-                        .AppendCallback(() => textField.text = nextNode.text)
+                        .AppendCallback(() => textField.text = nextNode.Text)
                         .Append(BlendInText());
                 }
                 else
                 {
-                    textField.text = nextNode.text;
+                    textField.text = nextNode.Text;
                     DOTween.Sequence()
                         .Append(BlendInBubble())
-                        .Append(nextNode.showMafiaGuy ? BlendInMafiaGuy() : BlendOutMafiaGuy());
+                        .Append(nextNode.ShowMafiaGuy ? BlendInMafiaGuy() : BlendOutMafiaGuy());
                 }
             }
         }
@@ -134,29 +135,17 @@ namespace GameScene.UI
 
         public void ShowYouCannotHoldFoodAndIllegalStuff()
         {
-            AddDialog("You cannot deliver food and illegal goods at the same time!", false);
+            AddDialog(new DialogNode("You cannot deliver food and illegal goods at the same time!", false));
         }
 
-        public void AddDialog(String text, bool showMafiaGuy)
+        public void AddDialog(DialogNode node)
         {
-            AddDialog(new List<string>(){text}, showMafiaGuy);
+            AddDialog(new List<DialogNode>(){node});
         }
 
-        public void AddDialog(List<String> texts, bool showMafiaGuy)
+        public void AddDialog(List<DialogNode> nodes)
         {
-            dialogTexts.AddRange(texts.Select(text => new DialogNode(text, showMafiaGuy)));
-        }
-
-        public class DialogNode
-        {
-            public String text;
-            public bool showMafiaGuy;
-
-            public DialogNode(String text, bool showMafiaGuy)
-            {
-                this.text = text;
-                this.showMafiaGuy = showMafiaGuy;
-            }
+            dialogTexts.AddRange(nodes);
         }
     }
 }

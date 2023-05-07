@@ -6,12 +6,12 @@ namespace GameScene
     {
         public override void OnClick()
         {
-            SceneTransitionManager.Get().ReloadCurrentScene();
+            SceneTransitionManager.Get().ReloadCurrentLevel();
         }
 
         public override bool IsEnabled()
         {
-            return !SceneTransitionManager.Get().IsInTransition();
+            return !FindObjectOfType<LevelManager>().IsPaused() && !SceneTransitionManager.Get().IsInTransition();
         }
     }
 }

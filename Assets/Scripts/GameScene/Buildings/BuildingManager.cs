@@ -1,23 +1,24 @@
 using System.Collections.Generic;
 using System.Linq;
-using GameScene.Buildings;
 using UnityEngine;
 
-namespace GameScene.BuildingMap
+namespace GameScene.Buildings
 {
     public abstract class BuildingManager<T> : MonoBehaviour where T : Building
     {
         [SerializeField] private Grid grid;
-        private T[] _buildings;
+        private List<T> _buildings;
 
         private void Start()
         {
-            _buildings = GetComponentsInChildren<T>();
-            foreach (var building in _buildings)
-            {
-                building.SetIndex(indexUnwrap(grid.WorldToCell(building.transform.position)));
-                building.transform.position = grid.GetCellCenterWorld(indexWrap(building.GetIndex()));
-            }
+            _buildings = new();
+        }
+
+        public void AddBuildingAt(T building, Vector2Int index)
+        {
+            building.SetIndex(index);
+            building.transform.position = IndexToPosition(building.GetIndex());
+            _buildings.Add(building);
         }
 
         public bool HasBuildingAt(Vector2Int index)
@@ -27,22 +28,12 @@ namespace GameScene.BuildingMap
 
         public Vector2 IndexToPosition(Vector2Int index)
         {
-            return grid.GetCellCenterWorld(indexWrap(index));
+            return grid.GetCellCenterWorld(IndexWrap(index));
         }
 
-        public Vector2 GetCellSize()
-        {
-            return grid.cellSize;
-        }
-
-        public Vector3Int indexWrap(Vector2Int index)
+        public Vector3Int IndexWrap(Vector2Int index)
         {
             return new Vector3Int(index.x, index.y, 0);
-        }
-
-        public Vector2Int indexUnwrap(Vector3Int index)
-        {
-            return new Vector2Int(index.x, index.y);
         }
 
         public T GetBuildingAt(Vector2Int index)
@@ -50,7 +41,7 @@ namespace GameScene.BuildingMap
             return _buildings.First(building => building.GetIndex() == index);
         }
 
-        public T[] GetBuildings()
+        public List<T> GetBuildings()
         {
             return _buildings;
         }
