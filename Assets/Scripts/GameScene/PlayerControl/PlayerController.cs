@@ -37,7 +37,7 @@ namespace GameScene.PlayerControl
             {
                 spriteRenderer.flipX = true;
             }
-            else
+            else if (newIndex.x > _currentIndex.x)
             {
                 spriteRenderer.flipX = false;
             }

@@ -120,10 +120,10 @@ TextureImporter:
       name: dogs_0
       rect:
         serializedVersion: 2
-        x: 11
-        y: 81
-        width: 85
-        height: 67
+        x: 4
+        y: 92
+        width: 87
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,10 +141,10 @@ TextureImporter:
       name: dogs_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 92
-        height: 72
+        x: 107
+        y: 70
+        width: 98
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,6 +154,27 @@ TextureImporter:
       bones: []
       spriteID: add24f2224edf4b1db2e337ba74c0dcb
       internalID: 2071976755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dogs_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 96
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae0b931836f6f4872a54472568f3e6b4
+      internalID: 512009445
       vertices: []
       indices: 
       edges: []
@@ -171,6 +192,7 @@ TextureImporter:
     nameFileIdTable:
       dogs_0: 2124058562
       dogs_1: 2071976755
+      dogs_2: 512009445
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -13,9 +13,15 @@ namespace Code.GameScene.UI
         private const float ClickScale = 1.3f;
 
         private bool _hovering;
+        public SpriteRenderer enterSign;
 
         public virtual void Start()
         {
+            if (enterSign)
+            {
+                enterSign.transform.localScale = Vector3.zero;
+            }
+
             if (!GetComponent<Collider2D>())
             {
                 Debug.LogError("No collider present!");
@@ -45,21 +51,15 @@ namespace Code.GameScene.UI
             if (IsEnabled())
             {
                 OnClick();
-                AudioManager.instance.PlayBlub();
-
-                DOTween.Sequence()
-                    .Append(ScaleUpOnClick())
-                    .Append(ScaleDownAfterClick())
-                    .Play();
             }
         }
 
-        private Tween ScaleUpOnClick()
+        protected Tween ScaleUpOnClick()
         {
             return transform.DOScale(ClickScale, ClickScaleTimeInSeconds).SetEase(Ease.OutBack);
         }
 
-        private Tween ScaleDownAfterClick()
+        protected Tween ScaleDownAfterClick()
         {
             return transform.DOScale(_hovering ? HoverScale : 1f, ClickScaleTimeInSeconds).SetEase(Ease.OutBack);
         }
@@ -78,9 +78,33 @@ namespace Code.GameScene.UI
 
         public abstract bool IsEnabled();
 
-        public bool IsHovering()
+        public void Trigger()
         {
-            return _hovering;
+            if (IsEnabled())
+            {
+                OnClick();
+            }
         }
+
+        public void OnSetActive()
+        {
+            if (enterSign)
+            {
+                enterSign.transform.DOScale(1, 0.2f).SetEase(Ease.InOutQuad);
+            }
+            
+            ScaleUp();
+        }
+
+        public void OnSetDeactive()
+        {
+            if (enterSign)
+            {
+                enterSign.transform.DOScale(0, 0.2f).SetEase(Ease.InOutQuad);
+            }
+            
+            ScaleDown();
+        }
+
     }
 }

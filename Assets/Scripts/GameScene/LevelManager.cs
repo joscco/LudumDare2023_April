@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using GameScene.Buildings;
@@ -9,6 +10,7 @@ using GameScene.Obstacles.TrafficLights;
 using GameScene.PlayerControl;
 using GameScene.StreetMap;
 using GameScene.UI;
+using GameScene.UI.Screens;
 using General;
 using LevelDesign;
 using UnityEngine;
@@ -19,7 +21,6 @@ namespace GameScene
     {
         public List<LevelData> levels;
 
-        [SerializeField] private InputManager inputManager;
         [SerializeField] private PlayerController player;
         [SerializeField] private DialogManager dialogManager;
 
@@ -39,6 +40,7 @@ namespace GameScene
 
         private int _level;
         private bool _paused;
+        private bool _setup;
         private int _actionsLeft;
         private int _moneyAcquired;
         private int _moneyNeeded;
@@ -55,45 +57,99 @@ namespace GameScene
 
             ShowOrHideItemHints();
             StartDialog(data);
+
+            _setup = true;
         }
-        
+
         private void Update()
         {
-            if (!SceneTransitionManager.Get().IsInTransition())
+            if (_setup)
             {
-                if (Input.GetKeyDown(KeyCode.O))
+                var move = InputManager.instance.GetMoveDirection();
+
+                if (OptionScreen.instance.IsVisible())
                 {
-                    OptionScreen.instance.Toggle();
+                    // Option Screen is showing
+                    if (move != Vector2Int.zero)
+                    {
+                        OptionScreen.instance.HandleMoveInput(move);
+                    }
+                    
+                    if (InputManager.instance.GetEnterOrSpace())
+                    {
+                        OptionScreen.instance.OnPressEnter();
+                    }
                 }
-                
-                if (Input.GetKeyDown(KeyCode.R))
+                else if (!_paused)
                 {
-                    SceneTransitionManager.Get().ReloadCurrentLevel();
-                    OptionScreen.instance.BlendOut();
+                    // Game is running
+                    if (move != Vector2Int.zero)
+                    {
+                        HandlePlayerMove(move);
+                    }
+
+                    if (InputManager.instance.GetEnterOrSpace())
+                    {
+                        dialogManager.SkipCurrentDialog();
+                    }
                 }
-            }
-            
-            
-            if (!_paused && !OptionScreen.instance.IsVisible())
-            {
-                var move = inputManager.CheckInput();
-                if (move.x != 0 || move.y != 0)
+                else
                 {
-                    HandleInput(move);
+                    // Win or Lose Screen is showing
+                    if (winScreen.IsVisible())
+                    {
+                        if (move != Vector2Int.zero)
+                        {
+                            winScreen.HandleMoveInput(move);
+                        }
+
+                        if (InputManager.instance.GetEnterOrSpace())
+                        {
+                            winScreen.OnPressEnter();
+                        }
+                    }
+                    else if (loseScreen.IsVisible())
+                    {
+                        if (move != Vector2Int.zero)
+                        {
+                            loseScreen.HandleMoveInput(move);
+                        }
+
+                        if (InputManager.instance.GetEnterOrSpace())
+                        {
+                            loseScreen.OnPressEnter();
+                        }
+                    }
                 }
 
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (!SceneManager.Get().IsInTransition())
                 {
-                    dialogManager.SkipCurrentDialog();
+                    if (Input.GetKeyDown(KeyCode.Q))
+                    {
+                        FindObjectOfType<GameScreenBackButton>()?.Trigger();
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.O))
+                    {
+                        FindObjectOfType<OptionButton>()?.Trigger();
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.R))
+                    {
+                        foreach (var retryButton in FindObjectsOfType<RetryButton>())
+                        {
+                            retryButton.Trigger();
+                        }
+                    }
                 }
             }
         }
 
         private void InitBasicData(LevelData levelData)
         {
-            SetActionsLeft(levelData.startActionsLeft);
             SetMoneyNeeded(levelData.moneyNeeded);
             SetMoneyAcquired(0);
+            SetActionsLeft(levelData.startActionsLeft);
         }
 
         private void InitInfrastructure(LevelData levelData)
@@ -133,7 +189,8 @@ namespace GameScene
                 {
                     building.itemHint.SetSprite(spriteWiki.FindSpriteForType(building.GetItemType()));
                     building.BlendInHint();
-                } else
+                }
+                else
                 {
                     building.HideItem();
                 }
@@ -271,7 +328,7 @@ namespace GameScene
             winScreen.BlendIn();
         }
 
-        private void HandleInput(Vector2Int move)
+        private void HandlePlayerMove(Vector2Int move)
         {
             var currentIndex = player.GetIndex();
             if (supplyBuildingsManager.HasBuildingAt(player.GetIndex() + move))

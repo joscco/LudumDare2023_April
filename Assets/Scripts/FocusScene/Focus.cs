@@ -8,7 +8,7 @@ public class Focus : MonoBehaviour
 {
     private void OnMouseUp()
     {
-        SceneTransitionManager.Get().TransitionTo("StartScene");
+        SceneManager.Get().TransitionTo("StartScene");
         AudioManager.instance.PlayMusic();
     }
 }

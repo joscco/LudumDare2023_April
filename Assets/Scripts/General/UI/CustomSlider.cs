@@ -1,4 +1,6 @@
 using System;
+using DG.Tweening;
+using GameScene.UI;
 using UnityEngine;
 
 namespace Code.GameScene.UI
@@ -8,7 +10,8 @@ namespace Code.GameScene.UI
         public SpriteRenderer background;
         public SpriteRenderer knob;
         public Camera camera;
-        
+
+        private Tween knobTween;
         private float value;
         private bool SliderKnob;
         
@@ -16,6 +19,7 @@ namespace Code.GameScene.UI
 
         private void OnMouseDown()
         {
+            OptionScreen.instance.SetActiveSlider(this);
             UpdateFromMouse();
         }
 
@@ -38,15 +42,31 @@ namespace Code.GameScene.UI
             ChangeValue(valueForPosition);
         }
 
-        protected void ChangeValue(float value)
+        public void ChangeValue(float newValue)
         {
+            value = Math.Clamp(newValue, 0, 1);
             knob.transform.localPosition =
                 new Vector2( value * background.sprite.texture.width, 0);
             OnChangeValue(value);
         }
 
+        public float GetValue()
+        {
+            return value;
+        }
+
         public abstract void OnChangeValue(float value);
+
+        public void OnSetActive()
+        {
+            knobTween?.Kill();
+            knobTween = knob.transform.DOScale(1.1f, 0.2f).SetEase(Ease.InOutQuad);
+        }
+        
+        public void OnSetDeactive()
+        {
+            knobTween?.Kill();
+            knobTween = knob.transform.DOScale(1f, 0.2f).SetEase(Ease.InOutQuad);
+        }
     }
-    
-    
 }

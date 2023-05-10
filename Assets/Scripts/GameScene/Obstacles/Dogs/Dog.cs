@@ -9,11 +9,12 @@ namespace GameScene.Dogs
     {
         [SerializeField] private SpriteRenderer warnSymbol;
         [SerializeField] private SpriteRenderer dogRenderer;
+        public Sprite sleepingDog;
         public Sprite standingDog;
         public Sprite runningDog;
         private Vector2Int _index;
         private Vector2Int _startIndex;
-        private DogStatus _status = DogStatus.Home;
+        private DogStatus _status = DogStatus.Sleeping;
         private Tween _moveTween;
         private Tween _scaleTween;
 
@@ -76,7 +77,7 @@ namespace GameScene.Dogs
             {
                 dogRenderer.flipX = true;
             }
-            else
+            else if (newIndex.x > _index.x)
             {
                 dogRenderer.flipX = false;
             }
@@ -88,21 +89,30 @@ namespace GameScene.Dogs
 
             if (_status == DogStatus.Homecoming && newIndex == _startIndex)
             {
-                _status = DogStatus.Home;
-                UpdateSprite();
+                _status = DogStatus.Sleeping;
+                
             }
+            
+            UpdateSprite();
         }
 
         private void UpdateSprite()
         {
             switch (_status)
             {
+                case DogStatus.Sleeping:
+                    dogRenderer.sprite = sleepingDog;
+                    break;
                 case DogStatus.Following:
                 case DogStatus.Homecoming:
-                    dogRenderer.sprite = runningDog;
-                    break;
-                case DogStatus.Home:
-                    dogRenderer.sprite = standingDog;
+                    if (_index == _startIndex)
+                    {
+                        dogRenderer.sprite = standingDog;
+                    }
+                    else
+                    {
+                        dogRenderer.sprite = runningDog;
+                    }
                     break;
             }
         }
@@ -135,7 +145,7 @@ namespace GameScene.Dogs
 
     public enum DogStatus
     {
-        Home,
+        Sleeping,
         Homecoming,
         Following,
         Canceled

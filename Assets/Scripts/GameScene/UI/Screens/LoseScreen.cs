@@ -1,3 +1,5 @@
+using System;
+using Code.GameScene.UI;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -12,13 +14,31 @@ namespace GameScene.UI
         public TextMeshPro reasonText;
         public SpriteRenderer reasonSpriteRenderer;
         public TitleAnimation titleAnimation;
+
+        public RetryButton retryButton;
+        public GameScreenBackButton backButton;
+
+        private const int VerticalOffsetWhenHidden = 1200;
+        private bool _visible;
         
-        private const int VERTICAL_OFFSET_WHEN_HIDDEN = 1200;
-        private bool _visible = false;
+        private ScalingButton _activeButton;
+        private ScalingButton[] _availableButtons;
 
         private void Start()
         {
             Hide();
+            _availableButtons = new ScalingButton[] { retryButton, backButton };
+            SetActiveButton(_availableButtons[0]);
+        }
+        
+        public void SetActiveButton(ScalingButton button)
+        {
+            if (_activeButton)
+            {
+                _activeButton.OnSetDeactive();
+            }
+            _activeButton = button;
+            _activeButton.OnSetActive();
         }
 
         public void BlendIn(LoseReason reason)
@@ -66,18 +86,39 @@ namespace GameScene.UI
         public void BlendOut()
         {
             _visible = false;
-            transform.DOMoveY(-VERTICAL_OFFSET_WHEN_HIDDEN, 0.5f).SetEase(Ease.InBack);
+            transform.DOMoveY(-VerticalOffsetWhenHidden, 0.5f).SetEase(Ease.InBack);
         }
 
         public void Hide()
         {
             _visible =false;
-            transform.position = new Vector2(0, -VERTICAL_OFFSET_WHEN_HIDDEN);
+            transform.position = new Vector2(0, -VerticalOffsetWhenHidden);
         }
 
         public bool IsVisible()
         {
             return _visible;
+        }
+
+        public void HandleMoveInput(Vector2Int move)
+        {
+            if (move.x != 0 && _activeButton)
+            {
+                SetActiveButton(FindNextAvailableButton());
+            }
+        }
+
+        private ScalingButton FindNextAvailableButton()
+        {
+            return _availableButtons[(Array.IndexOf(_availableButtons, _activeButton) + 1) % _availableButtons.Length];
+        }
+
+        public void OnPressEnter()
+        {
+            if (_activeButton)
+            {
+                _activeButton.Trigger();
+            }
         }
     }
 

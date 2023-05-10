@@ -132,7 +132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warnSymbol: {fileID: 8661107278948891168}
   dogRenderer: {fileID: 8661107280235162899}
-  standingDog: {fileID: 2124058562, guid: e934f19434fd84aea88d23d39308ab27, type: 3}
+  sleepingDog: {fileID: 2124058562, guid: e934f19434fd84aea88d23d39308ab27, type: 3}
+  standingDog: {fileID: 512009445, guid: e934f19434fd84aea88d23d39308ab27, type: 3}
   runningDog: {fileID: 2071976755, guid: e934f19434fd84aea88d23d39308ab27, type: 3}
 --- !u!1 &8661107280235162909
 GameObject:

@@ -47,7 +47,7 @@ MonoBehaviour:
   - Position: {x: 7, y: 4}
   Bridges:
   - Position: {x: 5, y: 3}
-    Type: 1
+    Type: 0
   Consumers:
   - Type: 0
     HouseType: 0
