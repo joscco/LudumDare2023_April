@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168a29f0ba1454895278dfbcf543990, type: 3}
+  m_Name: Level6
+  m_EditorClassIdentifier: 
+  level: 6
+  startActionsLeft: 25
+  moneyNeeded: 50
+  playerStartPosition: {x: 4, y: 1}
+  IntroTexts:
+  - Text: Traffic lights can delay progress on certain fields. When the light is
+      green you may walk, when it is red you must stand.
+    ShowMafiaGuy: 0
+  LevelDimensions: {x: 9, y: 7}
+  Streets:
+  - Position: {x: 4, y: 5}
+  - Position: {x: 4, y: 4}
+  - Position: {x: 4, y: 3}
+  - Position: {x: 4, y: 2}
+  - Position: {x: 4, y: 1}
+  - Position: {x: 3, y: 1}
+  - Position: {x: 2, y: 1}
+  - Position: {x: 1, y: 1}
+  - Position: {x: 1, y: 2}
+  - Position: {x: 1, y: 3}
+  - Position: {x: 2, y: 3}
+  - Position: {x: 3, y: 3}
+  - Position: {x: 5, y: 3}
+  - Position: {x: 6, y: 3}
+  Rivers: []
+  Bridges: []
+  Consumers:
+  - Type: 0
+    HouseType: 0
+    Position: {x: 2, y: 4}
+    SignPosition: 1
+  - Type: 2
+    HouseType: 1
+    Position: {x: 5, y: 5}
+    SignPosition: 2
+  - Type: 1
+    HouseType: 2
+    Position: {x: 7, y: 3}
+    SignPosition: 2
+  Suppliers:
+  - Type: 0
+    Position: {x: 5, y: 1}
+    SuppliedItems: 1
+    SignPosition: 2
+  - Type: 1
+    Position: {x: 3, y: 5}
+    SuppliedItems: 1
+    SignPosition: 1
+  - Type: 2
+    Position: {x: 2, y: 2}
+    SuppliedItems: 1
+    SignPosition: 2
+  TrafficLights:
+  - Position: {x: 4, y: 3}
+    StartStatus: 2
+  Polices: []
+  Dogs: []

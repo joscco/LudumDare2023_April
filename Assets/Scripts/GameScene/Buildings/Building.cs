@@ -25,11 +25,12 @@ namespace GameScene.Buildings
         public abstract bool NeedsHint();
 
         public abstract ItemType GetItemType();
-        
-        
+
+        public abstract int GetAdditionalVerticalOffset();
+
         public void InitHint(SignPosition supplierSignPosition, int number)
         {
-            itemHint.Turn(supplierSignPosition);
+            itemHint.Turn(supplierSignPosition, GetAdditionalVerticalOffset());
             itemHint.UpdateNumber(number);
         }
 

@@ -98,14 +98,14 @@ namespace GameScene.Buildings
             backgroundRenderer.transform.rotation = Quaternion.Euler(0, 0, degrees);
         }
 
-        public void Turn(SignPosition supplierSignPosition)
+        public void Turn(SignPosition signPosition, int additionalVerticalOffset)
         {
             StopJumping();
-            switch (supplierSignPosition)
+            switch (signPosition)
             {
                 case SignPosition.Top:
                     TurnBackground(0);
-                    transform.localPosition = Vector2.up * 125;
+                    transform.localPosition = Vector2.up * (125 +additionalVerticalOffset);
                     break;
                 case SignPosition.Bottom:
                     TurnBackground(180);

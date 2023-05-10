@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1168a29f0ba1454895278dfbcf543990, type: 3}
+  m_Name: Level9
+  m_EditorClassIdentifier: 
+  level: 9
+  startActionsLeft: 21
+  moneyNeeded: 200
+  playerStartPosition: {x: 7, y: 5}
+  IntroTexts:
+  - Text: Hey delivery guy, l'm going to make you an even better offer.
+    ShowMafiaGuy: 1
+  - Text: The mafia trusts you a little more and asks you to deliver weapons (worth
+      100 coins).
+    ShowMafiaGuy: 1
+  - Text: Pick up weapons at warehouses.
+    ShowMafiaGuy: 1
+  - Text: The same rules apply as for the delivery of drugs.
+    ShowMafiaGuy: 1
+  LevelDimensions: {x: 11, y: 8}
+  Streets:
+  - Position: {x: 6, y: 1}
+  - Position: {x: 7, y: 1}
+  - Position: {x: 8, y: 1}
+  - Position: {x: 5, y: 2}
+  - Position: {x: 8, y: 2}
+  - Position: {x: 5, y: 3}
+  - Position: {x: 8, y: 3}
+  - Position: {x: 5, y: 4}
+  - Position: {x: 8, y: 4}
+  - Position: {x: 2, y: 5}
+  - Position: {x: 3, y: 5}
+  - Position: {x: 4, y: 5}
+  - Position: {x: 5, y: 5}
+  - Position: {x: 6, y: 5}
+  - Position: {x: 7, y: 5}
+  - Position: {x: 8, y: 5}
+  Rivers:
+  - Position: {x: 1, y: 2}
+  - Position: {x: 2, y: 2}
+  - Position: {x: 3, y: 2}
+  - Position: {x: 4, y: 2}
+  - Position: {x: 5, y: 2}
+  - Position: {x: 6, y: 2}
+  - Position: {x: 7, y: 2}
+  - Position: {x: 8, y: 2}
+  - Position: {x: 9, y: 2}
+  Bridges:
+  - Position: {x: 8, y: 2}
+    Type: 0
+  - Position: {x: 5, y: 2}
+    Type: 0
+  Consumers:
+  - Type: 1
+    HouseType: 2
+    Position: {x: 1, y: 5}
+    SignPosition: 0
+  - Type: 2
+    HouseType: 1
+    Position: {x: 2, y: 4}
+    SignPosition: 3
+  - Type: 1
+    HouseType: 0
+    Position: {x: 3, y: 4}
+    SignPosition: 3
+  - Type: 0
+    HouseType: 0
+    Position: {x: 4, y: 4}
+    SignPosition: 3
+  - Type: 4
+    HouseType: 0
+    Position: {x: 5, y: 1}
+    SignPosition: 0
+  Suppliers:
+  - Type: 2
+    Position: {x: 2, y: 6}
+    SuppliedItems: 1
+    SignPosition: 1
+  - Type: 1
+    Position: {x: 3, y: 6}
+    SuppliedItems: 2
+    SignPosition: 1
+  - Type: 0
+    Position: {x: 4, y: 6}
+    SuppliedItems: 1
+    SignPosition: 1
+  - Type: 4
+    Position: {x: 7, y: 6}
+    SuppliedItems: 1
+    SignPosition: 1
+  TrafficLights:
+  - Position: {x: 8, y: 4}
+    StartStatus: 0
+  Polices:
+  - Position: {x: 9, y: 1}
+  Dogs:
+  - Position: {x: 5, y: 6}

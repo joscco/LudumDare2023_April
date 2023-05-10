@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using LevelDesign;
 using UnityEngine;
 
 namespace GameScene.Buildings
 {
     public class PoliceManager : MonoBehaviour
     {
+        [SerializeField] private PoliceBuilding policeStationPrefab;
         [SerializeField] private Grid grid;
         private List<PoliceBuilding> _buildings;
 
@@ -66,6 +68,16 @@ namespace GameScene.Buildings
         {
             policeInstance.SetIndex(policeDataPosition);
             policeInstance.transform.position = grid.GetCellCenterWorld(indexWrap(policeInstance.GetIndex()));
+            _buildings.Add(policeInstance);
+        }
+
+        public void InitPoliceDepartments(List<PoliceData> polices)
+        {
+            foreach (var policeData in polices)
+            {
+                var policeInstance = Instantiate(policeStationPrefab, transform);
+                AddPoliceAt(policeInstance, policeData.Position);
+            }
         }
     }
 }

@@ -21,10 +21,6 @@ namespace GameScene.UI
         {
             base.Start();
             levelText.text = level.ToString();
-            spriteRenderer.sortingOrder = level;
-            levelText.sortingOrder = level;
-            // Show the above colliders on top!
-            transform.position = new Vector3(transform.position.x, transform.position.y, -level/2);
         }
         
         public void SetAvailable()

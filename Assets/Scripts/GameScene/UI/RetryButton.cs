@@ -11,7 +11,7 @@ namespace GameScene
 
         public override bool IsEnabled()
         {
-            return !FindObjectOfType<LevelManager>().IsPaused() && !SceneTransitionManager.Get().IsInTransition();
+            return !SceneTransitionManager.Get().IsInTransition();
         }
     }
 }

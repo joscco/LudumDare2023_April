@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameScene.BuildingMap;
+using LevelDesign;
 using UnityEngine;
 
-namespace GameScene.BuildingMap
+namespace GameScene.Obstacles.TrafficLights
 {
     public class TrafficLightManager : MonoBehaviour
     {
+        [SerializeField] private TrafficLight trafficLightPrefab;
         [SerializeField] private Grid grid;
         private List<TrafficLight> _trafficLights;
 
@@ -14,14 +17,9 @@ namespace GameScene.BuildingMap
             _trafficLights = new();
         }
 
-        public bool HasLightAt(Vector2Int index)
-        {
-            return _trafficLights.Any(light => light.GetIndex() == index);
-        }
-
         public Vector2 IndexToPosition(Vector2Int index)
         {
-            return grid.GetCellCenterWorld(indexWrap(index));
+            return grid.GetCellCenterWorld(IndexWrap(index));
         }
 
         public Vector2 GetCellSize()
@@ -29,19 +27,14 @@ namespace GameScene.BuildingMap
             return grid.cellSize;
         }
 
-        public Vector3Int indexWrap(Vector2Int index)
+        public Vector3Int IndexWrap(Vector2Int index)
         {
             return new Vector3Int(index.x, index.y, 0);
         }
-
-        public Vector2Int indexUnwrap(Vector3Int index)
-        {
-            return new Vector2Int(index.x, index.y);
-        }
-
+        
         public TrafficLight GetTrafficLightAt(Vector2Int index)
         {
-            return _trafficLights.First(light => light.GetIndex() == index);
+            return _trafficLights.First(trafficLight => trafficLight.GetIndex() == index);
         }
 
         public bool CanEnter(Vector2Int currentIndex)
@@ -69,8 +62,18 @@ namespace GameScene.BuildingMap
         public void AddLightAt(TrafficLight trafficLightInstance, Vector2Int trafficLightPosition)
         {
             trafficLightInstance.SetIndex(trafficLightPosition);
-            trafficLightInstance.transform.position =
-                grid.GetCellCenterWorld(indexWrap(trafficLightInstance.GetIndex()));
+            trafficLightInstance.transform.position = IndexToPosition(trafficLightInstance.GetIndex());
+            _trafficLights.Add(trafficLightInstance);
+        }
+
+        public void InitTrafficLights(List<TrafficLightData> trafficLights)
+        {
+            foreach (var trafficLight in trafficLights)
+            {
+                var trafficLightInstance = Instantiate(trafficLightPrefab, transform);
+                trafficLightInstance.status = trafficLight.StartStatus; 
+                AddLightAt(trafficLightInstance, trafficLight.Position);
+            }
         }
     }
 }

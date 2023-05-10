@@ -26,6 +26,11 @@ namespace GameScene.Buildings
             return demandedItemType;
         }
 
+        public override int GetAdditionalVerticalOffset()
+        {
+            return 10;
+        }
+
         public void BlendInHint()
         {
             itemHint.BlendIn();

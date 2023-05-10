@@ -52,5 +52,10 @@ namespace GameScene.BuildingMap
         {
             itemHint.Hide();
         }
+        
+        public override int GetAdditionalVerticalOffset()
+        {
+            return 0;
+        }
     }
 }

@@ -56,6 +56,9 @@ TagManager:
   - name: BuildingsAndPlayer
     uniqueID: 3170936129
     locked: 0
+  - name: SignTop
+    uniqueID: 2368211853
+    locked: 0
   - name: DialogPerson
     uniqueID: 564358147
     locked: 0

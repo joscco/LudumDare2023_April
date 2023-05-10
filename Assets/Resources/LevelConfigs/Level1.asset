@@ -17,7 +17,22 @@ MonoBehaviour:
   moneyNeeded: 20
   playerStartPosition: {x: 1, y: 2}
   IntroTexts:
-  - Text: Blabla
+  - Text: Deliver Pizza, Sushi and Hamburger (worth 20 coins each).
+    ShowMafiaGuy: 0
+  - Text: Use the arrow keys (or ASDW) to move your vehicle.
+    ShowMafiaGuy: 0
+  - Text: Collect fast food and deliver it by pressing the arrow keys in the direction
+      of the corresponding buildings (one press per item).
+    ShowMafiaGuy: 0
+  - Text: Your movements and (un)loading items consume action points.
+    ShowMafiaGuy: 0
+  - Text: Keep track of your maximum actions and try to reach your daily money goal
+      to finish a level.
+    ShowMafiaGuy: 0
+  - Text: Every 3 actions the freshness of your fast food delivery decreases.
+    ShowMafiaGuy: 0
+  - Text: Deliver the food very fresh to collect a tip (+5 coins) and avoid older
+      food so you don't have to give a discount (-5 coins).
     ShowMafiaGuy: 0
   LevelDimensions: {x: 8, y: 5}
   Streets:

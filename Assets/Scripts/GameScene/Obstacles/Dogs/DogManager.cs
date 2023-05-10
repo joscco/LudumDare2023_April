@@ -1,12 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using GameScene.Dogs;
+using LevelDesign;
 using UnityEngine;
 
-namespace GameScene.Dogs
+namespace GameScene.Obstacles.Dogs
 {
     public class DogManager : MonoBehaviour
     {
+        [SerializeField] private Dog dogPrefab;
         [SerializeField] private Grid grid;
         private List<Dog> _dogs;
 
@@ -32,22 +34,12 @@ namespace GameScene.Dogs
 
         public Vector2 IndexToPosition(Vector2Int index)
         {
-            return grid.GetCellCenterWorld(indexWrap(index));
+            return grid.GetCellCenterWorld(IndexWrap(index));
         }
 
-        public Vector2 GetCellSize()
-        {
-            return grid.cellSize;
-        }
-
-        public Vector3Int indexWrap(Vector2Int index)
+        public Vector3Int IndexWrap(Vector2Int index)
         {
             return new Vector3Int(index.x, index.y, 0);
-        }
-
-        public Vector2Int indexUnwrap(Vector3Int index)
-        {
-            return new Vector2Int(index.x, index.y);
         }
 
         public Dog GetDogAt(Vector2Int index)
@@ -65,7 +57,17 @@ namespace GameScene.Dogs
             var startIndex = dogDataPosition;
             dogInstance.SetIndex(startIndex);
             dogInstance.SetStartIndex(startIndex);
-            dogInstance.transform.position = grid.GetCellCenterWorld(indexWrap(dogInstance.GetIndex()));
+            dogInstance.transform.position = IndexToPosition(dogInstance.GetIndex());
+            _dogs.Add(dogInstance);
+        }
+
+        public void InitDogs(List<DogData> levelDataDogs)
+        {
+            foreach (var dogData in levelDataDogs)
+            {
+                var dogInstance = Instantiate(dogPrefab, transform);
+                AddDogAt(dogInstance, dogData.Position);
+            }
         }
     }
 }
